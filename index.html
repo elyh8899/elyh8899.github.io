@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyet Tuyen Hoang - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+</head>
+<body class="font-['Inter'] antialiased">
+    <!-- Desktop Recommendation Overlay --> 
+    <div id="desktop-warning" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+        <div class="text-center text-white p-6 bg-gray-900 bg-opacity-90 rounded-lg">
+            <p class="text-lg font-medium mb-2">⚠️ This interface looks best on a desktop in full screen.</p>
+            <p class="text-sm opacity-80">Please switch to a desktop for the best experience.</p>
+        </div>
+    </div>
+
+    <!-- Video Background with Sound -->
+    <div class="video-container">
+        <video id="background-video" autoplay loop playsinline class="video-background" volume="0.7">
+            <source src="background.mp4" type="video/mp4">
+            <!-- Fallback image if video doesn't load -->
+            <div class="fallback-background"></div>
+        </video>
+        
+        <!-- Video overlay for better text readability -->
+        <div class="video-overlay"></div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content-wrapper" id="main-content">
+        <!-- Navigation Header -->
+        <nav class="nav-header">
+            <div class="nav-container">
+                <h1 class="nav-title">
+                    <span class="moon-icon">🌙</span>
+                    Nguyet Tuyen Hoang
+                </h1>
+                <div class="nav-links">
+                    <button onclick="showSection('about')" class="nav-link">About</button>
+                    <button onclick="showSection('projects')" class="nav-link">Projects</button>
+                    <button onclick="showSection('skills')" class="nav-link">Skills</button>
+                    <button onclick="showJourney()" class="nav-link">My Journey</button>
+                    <button onclick="showSection('contact')" class="nav-link">Contact</button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Interactive Area -->
+        <main class="main-content">
+            <div class="hero-section">
+                <div class="hero-text">
+                    <h2 class="hero-title">Welcome to My Portfolio</h2>
+                    <p class="hero-subtitle">Software Engineer • Data Analyst • AI Enthusiast </p>
+                </div>
+                
+                <!-- Interactive Buttons Grid -->
+                <div class="buttons-grid">
+                    <button onclick="showSection('about')" class="section-button about-btn">
+                        <span class="button-icon">🌙</span>
+                        <span class="button-text">About Me</span>
+                        <span class="button-subtitle">My Story</span>
+                    </button>
+                    
+                    <button onclick="showSection('projects')" class="section-button projects-btn">
+                        <span class="button-icon">🌿</span>
+                        <span class="button-text">Projects</span>
+                        <span class="button-subtitle">My Work</span>
+                    </button>
+                    
+                    <button onclick="showJourney()" class="section-button journey-btn">
+                        <span class="button-icon">🏔️</span>
+                        <span class="button-text">My Journey</span>
+                        <span class="button-subtitle">Step by Step</span>
+                    </button>
+                    
+                    <button onclick="showSection('skills')" class="section-button skills-btn">
+                        <span class="button-icon">✨</span>
+                        <span class="button-text">Skills</span>
+                        <span class="button-subtitle">My Abilities</span>
+                    </button>
+                    
+                    <button onclick="showSection('contact')" class="section-button contact-btn">
+                        <span class="button-icon">🌊</span>
+                        <span class="button-text">Contact</span>
+                        <span class="button-subtitle">Let's Connect</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">© 2025 Nguyet Tuyen Hoang • Designed with Name's Origin</p>
+        </footer>
+    </div>
+    
+    <!-- Pagoda Journey Section -->
+    <div id="journey-container" class="journey-container hidden">
+        <!-- 3D Pagoda Scene -->
+        <div id="pagoda-scene" class="pagoda-scene"></div>
+        
+        <!-- Journey UI Overlay -->
+        <div class="journey-ui">
+            <!-- Entrance Quote -->
+            <div id="entrance-quote" class="entrance-quote">
+                <h2 class="quote-text">"Every step built who I am. Climb with me."</h2>
+                <p class="quote-subtitle">Click anywhere to begin ascending the mountain</p>
+            </div>
+            
+            <!-- Milestone Information Panel -->
+            <div id="milestone-info" class="milestone-info hidden">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            
+            <!-- Floor Information Panel -->
+            <div id="floor-panel" class="floor-panel hidden">
+                <div class="floor-content">
+                    <div class="floor-year" id="floor-year">2019</div>
+                    <div class="floor-title" id="floor-title">Milestone Title</div>
+                    <div class="floor-description" id="floor-description">Description of this important moment in my journey.</div>
+                </div>
+            </div>
+            
+            <!-- Navigation Controls -->
+            <div id="journey-controls" class="journey-controls hidden">
+                <button id="floor-up" class="floor-nav-btn up-btn" onclick="navigateFloor('up')">
+                    <span class="nav-arrow">↑</span>
+                    <span class="nav-text">Ascend</span>
+                </button>
+                <button id="floor-down" class="floor-nav-btn down-btn" onclick="navigateFloor('down')">
+                    <span class="nav-arrow">↓</span>
+                    <span class="nav-text">Descend</span>
+                </button>
+                <div class="floor-indicator">
+                    <span id="current-floor">1</span> / <span id="total-floors">5</span>
+                </div>
+            </div>
+            
+            <!-- Exit Button -->
+            <button id="exit-journey" class="exit-journey-btn" onclick="exitJourney()">
+                <span class="exit-icon">🚪</span>
+                <span class="exit-text">Return to Realm</span>
+            </button>
+            
+            <!-- Keyboard Instructions -->
+            <div class="keyboard-instructions">
+                <p>Use <kbd>W</kbd><kbd>S</kbd> or <kbd>↑</kbd><kbd>↓</kbd> to navigate • <kbd>ESC</kbd> to exit</p>
+            </div>
+        </div>
+        
+        <!-- Journey Audio -->
+        <audio id="journey-audio" loop>
+            <source src="journey-music.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    
+    <!-- Modal -->
+    <div id="modal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title" class="modal-title"></h2>
+                    <button onclick="closeModal()" class="modal-close">
+                        <span class="close-icon">✕</span>
+                    </button>
+                </div>
+                <div id="modal-body" class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loading" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading Mystical Forest...</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="journey.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>AOS.init();</script>
+</body>
+</html>
+
