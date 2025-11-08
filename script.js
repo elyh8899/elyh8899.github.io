@@ -60,7 +60,7 @@ const portfolioContent = {
                     <div class="project-card bg-gradient-to-br from-green-900 to-amber-900 bg-opacity-40 p-6 rounded-lg border border-green-500 border-opacity-30">
                         <div class="flex items-start justify-between mb-4">
                             <h4 class="text-xl font-medium text-green-300">🤖 interactL (Group Graduate Project)</h4>
-                            <span class="text-xs bg-green-600 bg-opacity-50 px-2 py-1 rounded text-green-200">Ongoing</span>
+                            <span class="text-xs bg-green-600 bg-opacity-50 px-2 py-1 rounded text-green-200">Complete</span>
                         </div>
                         <p class="text-amber-100 mb-4 leading-relaxed">
                             Full-stack web application using React & Flask for interactive educational platform teaching federated learning with hands-on simulations and real-time progress tracking.
@@ -72,10 +72,22 @@ const portfolioContent = {
                             <span class="tech-tag">RESTful API</span>
                             <span class="tech-tag">WebSockets</span>
                         </div>
-                        <div class="text-sm text-amber-200 opacity-80">
+                        <div class="text-sm text-amber-200 opacity-80 mb-4">
                             <strong>Key Features:</strong> Simulator, Live Visualisations, Adaptive Learning
                         </div>
+                        
+                        <!-- YouTube Video Embed -->
+                        <div class="relative pt-[56.25%]">
+                            <iframe id="yt-demo" class="absolute top-0 left-0 w-full h-full rounded-lg"
+                                    src="https://www.youtube.com/embed/nMY8dJva8uY?enablejsapi=1"
+                                    title="interactL Demo"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
+
                     
                     <div class="project-card bg-gradient-to-br from-blue-900 to-purple-900 bg-opacity-40 p-6 rounded-lg border border-blue-500 border-opacity-30">
                         <h4 class="text-xl font-medium text-blue-300 mb-4">📊 Data & AI Driven Projects</h4>
@@ -901,3 +913,34 @@ function handleKeyPress(e) {
 // Export journey functions for global access
 window.showJourney = showJourney;
 window.exitJourney = exitJourney;
+
+// Load YouTube IFrame API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+player = new YT.Player('yt-demo', {
+    events: {
+    'onStateChange': onPlayerStateChange
+    }
+});
+}
+
+function onPlayerStateChange(event) {
+const bgVideo = document.getElementById('background-video');
+if (!bgVideo) return;
+
+// When video plays, mute background
+if (event.data == YT.PlayerState.PLAYING) {
+    bgVideo.muted = true;
+}
+
+// When video pauses or ends, restore background audio
+if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+    bgVideo.muted = false;
+}
+}
+
